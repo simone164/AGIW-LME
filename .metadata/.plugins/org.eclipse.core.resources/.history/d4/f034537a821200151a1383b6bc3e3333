@@ -22,10 +22,8 @@ public class QuerySender {
         final String accountKey = "0BurpGvn2zX75hWORRHEGtMtuS5FhZLE9A3Gi32AvU4";
         final String bingUrlPattern = "https://api.datamarket.azure.com/Bing/Search/Web?Query=%%27%s%%27&$format=JSON";
 
-        List<String> list = new ArrayList<String>();
-        
         for (String s : preparaQuery) {
-        	final String query = URLEncoder.encode(s, Charset.defaultCharset().name());
+        	final String query = URLEncoder.encode("Jose Mourinho Setubal", Charset.defaultCharset().name());
             final String bingUrl = String.format(bingUrlPattern, query);
 
             final String accountKeyEnc = Base64.getEncoder().encodeToString((accountKey + ":" + accountKey).getBytes());
@@ -34,6 +32,7 @@ public class QuerySender {
             final URLConnection connection = url.openConnection();
             connection.setRequestProperty("Authorization", "Basic " + accountKeyEnc);
 
+            List<String> list = new ArrayList<String>();
             
             try (final BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
                 String inputLine;
@@ -54,8 +53,6 @@ public class QuerySender {
                 
                 for (int i = 0; i < resultsLength; i++) {
                     JsonObject aResult = results.getJsonObject(i);
-                    String description = aResult.get("Description").toString();
-                    list.add(description);
                     System.out.println(aResult.get("Description"));
                 }
                     System.out.println(response.toString());
