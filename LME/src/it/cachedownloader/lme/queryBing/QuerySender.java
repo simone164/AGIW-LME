@@ -22,8 +22,6 @@ public class QuerySender {
         final String bingUrlPattern = "https://api.datamarket.azure.com/Bing/Search/Web?Query=%%27%s%%27&$format=JSON";
 
         List<String[]> list = new ArrayList<String[]>();
-        
-        System.out.println("count prepara query: " + preparaQuery.size());
         int numeroQuery = 0;
         for (String s : preparaQuery) {
         	numeroQuery++;
@@ -31,8 +29,6 @@ public class QuerySender {
 	        	
         		s.replace('-', ' ');
         		
-	        	System.out.println("Query:" + s);
-	        	
 	        	List<String> descriptions = new ArrayList<String>();
 	        	
 	        	final String query = URLEncoder.encode(s, Charset.defaultCharset().name());
@@ -65,10 +61,8 @@ public class QuerySender {
 	                    JsonObject aResult = results.getJsonObject(i);
 	                    String description = aResult.get("Description").toString();
 	                    description = filtraDescriptions(description, s);
-	                    if(!description.equals("null")){
-	                    	System.out.println("DESC: " + description);
-	                    }
-	                    descriptions.add(description);
+	                    if (description != "") 
+	                    	descriptions.add(description);
 	                   // System.out.println(aResult.get("Description"));
 	                }
 	                    //System.out.println(response.toString());
@@ -81,26 +75,13 @@ public class QuerySender {
         return list;
         }
     
-    
-    	
-    public String filtraDescriptions(String description, String query){
-    	
-    	String result ="";
-    	
+    public String filtraDescriptions(String description, String query){    	
+    	String result ="";    	
     	String[] querySplitted = query.split("-");
     	String entita = querySplitted[0];
     	String luogo = querySplitted[1];
-    	String cognome = "";
-    	
     	String[] entitaSplitted = entita.split("\\s+");
-//    	for(int i=0; i < entitaSplitted.length; i++){
-//    		cognome =  entitaSplitted[i];
-//    	}
-    	
-    	cognome = entitaSplitted[entitaSplitted.length-1];
-    	
-    	//System.out.println("Cognome: " + cognome);
-    	//System.out.println("Luogo: " + luogo);
+    	String cognome = entitaSplitted[entitaSplitted.length-1];
     	
     	boolean trovato = false;
     	boolean daPrendere = false;
@@ -109,31 +90,20 @@ public class QuerySender {
     	for(int i = 0; i< descrSplitted.length ; i++){
     		if(descrSplitted[i].equals(cognome)){
     				trovato = true;
-    		}
-    		
+    		}    		
     		if(trovato){
     			result += descrSplitted[i] + " ";
-    		}
-    		
-    		
+    		}    		
     		if(descrSplitted[i].equals(luogo)){
     				daPrendere = true;
     			break;
     		}
     	}
     	
-    	if(daPrendere){
-        	
-    		return result;
-    	
-    	}else{
-    		return result = "null";
+    	if(daPrendere && result != ""){        	
+    		return result;    	
     	}
-    	
-
+    	return "";
     }
     
-
-
-
 }

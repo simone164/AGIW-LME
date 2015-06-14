@@ -14,15 +14,10 @@ public class Reader {
 
 		String dataRow = TSVFile.readLine();
 		List<String> list = new ArrayList<String>();
-//		int i = 0;
 		while (dataRow != null) {
-//			i++;
 			String[] dataArray = dataRow.split("\t");
 
 			String stringToAdd = dataArray[1] + "-" + dataArray[3];
-			
-			//System.out.println("stringa: " + stringToAdd);
-			
 			list.add(stringToAdd);
 
 			// Iterator<String> it = list.iterator();
@@ -33,12 +28,7 @@ public class Reader {
 			// System.out.println(); // Print the data line.
 			dataRow = TSVFile.readLine();
 		}
-
 		TSVFile.close();
-
-		System.out.println("GRANDEZZA: " +list.size());
-		
-		
 		return list;
 
 	} // main()
