@@ -68,5 +68,13 @@ public class Parser {
 	        System.out.println("key: " + key + ", value: " + value );
 	    }
 	}
+	
+	public boolean cercaPattern(String description, String pattern){
+		boolean trovato = false;
+		
+		
+		
+		return trovato;
+	}
 
 }

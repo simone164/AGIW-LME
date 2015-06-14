@@ -27,9 +27,11 @@ public class QuerySender {
         int numeroQuery = 0;
         for (String s : preparaQuery) {
         	numeroQuery++;
-        	if (numeroQuery < 10) {
+        	if (numeroQuery < 100) {
 	        	
-	        	System.out.println("String:" + s);
+        		s.replace('-', ' ');
+        		
+	        	System.out.println("Query:" + s);
 	        	
 	        	List<String> descriptions = new ArrayList<String>();
 	        	
@@ -62,6 +64,10 @@ public class QuerySender {
 	                for (int i = 0; i < resultsLength; i++) {
 	                    JsonObject aResult = results.getJsonObject(i);
 	                    String description = aResult.get("Description").toString();
+	                    description = filtraDescriptions(description, s);
+	                    if(!description.equals("null")){
+	                    	System.out.println("DESC: " + description);
+	                    }
 	                    descriptions.add(description);
 	                   // System.out.println(aResult.get("Description"));
 	                }
@@ -74,5 +80,60 @@ public class QuerySender {
 
         return list;
         }
-        
+    
+    
+    	
+    public String filtraDescriptions(String description, String query){
+    	
+    	String result ="";
+    	
+    	String[] querySplitted = query.split("-");
+    	String entita = querySplitted[0];
+    	String luogo = querySplitted[1];
+    	String cognome = "";
+    	
+    	String[] entitaSplitted = entita.split("\\s+");
+//    	for(int i=0; i < entitaSplitted.length; i++){
+//    		cognome =  entitaSplitted[i];
+//    	}
+    	
+    	cognome = entitaSplitted[entitaSplitted.length-1];
+    	
+    	//System.out.println("Cognome: " + cognome);
+    	//System.out.println("Luogo: " + luogo);
+    	
+    	boolean trovato = false;
+    	boolean daPrendere = false;
+    	
+    	String[] descrSplitted = description.split("\\s+");
+    	for(int i = 0; i< descrSplitted.length ; i++){
+    		if(descrSplitted[i].equals(cognome)){
+    				trovato = true;
+    		}
+    		
+    		if(trovato){
+    			result += descrSplitted[i] + " ";
+    		}
+    		
+    		
+    		if(descrSplitted[i].equals(luogo)){
+    				daPrendere = true;
+    			break;
+    		}
+    	}
+    	
+    	if(daPrendere){
+        	
+    		return result;
+    	
+    	}else{
+    		return result = "null";
+    	}
+    	
+
+    }
+    
+
+
+
 }

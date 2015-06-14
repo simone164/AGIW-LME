@@ -19,7 +19,7 @@ public class Reader {
 //			i++;
 			String[] dataArray = dataRow.split("\t");
 
-			String stringToAdd = dataArray[1] + " " + dataArray[3];
+			String stringToAdd = dataArray[1] + "-" + dataArray[3];
 			
 			//System.out.println("stringa: " + stringToAdd);
 			
@@ -36,8 +36,9 @@ public class Reader {
 
 		TSVFile.close();
 
-		// System.out.println()
-
+		System.out.println("GRANDEZZA: " +list.size());
+		
+		
 		return list;
 
 	} // main()
