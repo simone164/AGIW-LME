@@ -1,26 +1,28 @@
-package it.cachedownloader.lme.InputReader;
+package it.cachedownloader.lme.DescriptionParser;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
-public class Reader {
-
-	public List<String> TornaSetDiQuery() throws IOException{
+public class Parser {
+	
+	//public static void main(final String[] args) throws Exception{
+	
+	public List<String> TornaLMOutputSet() throws IOException{
 		
-
 		BufferedReader TSVFile = new BufferedReader(new FileReader(
-				"CacheDown/triples_actor_city_5000.tsv"));
+				"CacheDown/place_of_birt_LMcomplete.tsv"));
 
 		String dataRow = TSVFile.readLine();
 		List<String> list = new ArrayList<String>();
 		while (dataRow != null) {
 			list.clear();
-			String[] dataArray = dataRow.split("\t");
 
-			String stringToAdd = dataArray[1] + " " + dataArray[3];
+			String stringToAdd = dataRow.toString();
 
 			list.add(stringToAdd);
 
@@ -30,7 +32,7 @@ public class Reader {
 //				System.out.print(txt);
 //			}
 //			System.out.println(); // Print the data line.
-			dataRow = TSVFile.readLine();
+//			dataRow = TSVFile.readLine();
 		}
 
 		TSVFile.close();
@@ -40,5 +42,12 @@ public class Reader {
 		return list;
 
 	} // main()
+	
+	
+	public void parsaPattern(List<String> patternSet, List<String> DescriptionSet){
 		
+	}
+
+	
+
 }
