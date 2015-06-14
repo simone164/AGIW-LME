@@ -17,7 +17,6 @@ public class Reader {
 //		int i = 0;
 		while (dataRow != null) {
 //			i++;
-			list.clear();
 			String[] dataArray = dataRow.split("\t");
 
 			String stringToAdd = dataArray[1] + " " + dataArray[3];

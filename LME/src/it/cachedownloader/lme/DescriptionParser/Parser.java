@@ -42,16 +42,21 @@ public class Parser {
 	
 	public void parsaPattern(List<String> patternSet, List<String[]> descriptionSet) {
 		Map<String , Integer> countPattern = new HashMap<String, Integer>();
-				
+		
+		
 		for(String s : patternSet){
 			for (String [] arrayString : descriptionSet ){
-				for (String string : arrayString) {
+				
+				for (int y = 0; y < arrayString.length ; y++) {
+					
+					String string = arrayString[y];
 					if (string.contains(s)) {
 						if (countPattern.containsKey(s)) {
 							int i = countPattern.get(s).intValue();
 							countPattern.put(s, new Integer(i+1));
+						} else {
+							countPattern.put(s, new Integer(1));
 						}
-						countPattern.put(s, new Integer(1));
 					}
 				}
 			}
