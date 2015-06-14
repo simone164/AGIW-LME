@@ -13,6 +13,9 @@ import java.util.List;
 
 import javax.json.*;
 
+//import org.json.JSONArray;
+//import org.json.JSONObject;
+
 public class QuerySender {
 
     public static List<String[]> queryToDescription(List<String> preparaQuery) throws Exception {
@@ -23,8 +26,6 @@ public class QuerySender {
         
         
         for (String s : preparaQuery) {
-        	List<String> descriptions = new ArrayList<String>();
-        	
         	final String query = URLEncoder.encode(s, Charset.defaultCharset().name());
             final String bingUrl = String.format(bingUrlPattern, query);
 
@@ -34,6 +35,7 @@ public class QuerySender {
             final URLConnection connection = url.openConnection();
             connection.setRequestProperty("Authorization", "Basic " + accountKeyEnc);
 
+            
             try (final BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
                 String inputLine;
                 
@@ -54,13 +56,13 @@ public class QuerySender {
                 for (int i = 0; i < resultsLength; i++) {
                     JsonObject aResult = results.getJsonObject(i);
                     String description = aResult.get("Description").toString();
-                    descriptions.add(description);
-                   // System.out.println(aResult.get("Description"));
+                    list.add(description);
+                    System.out.println(aResult.get("Description"));
                 }
-                    //System.out.println(response.toString());
+                    System.out.println(response.toString());
                 }
             
-            list.add(descriptions.toArray(new String[descriptions.size()]));
+            
             }
         return list;
         }

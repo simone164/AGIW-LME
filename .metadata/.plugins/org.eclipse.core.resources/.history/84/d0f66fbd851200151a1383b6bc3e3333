@@ -55,9 +55,9 @@ public class QuerySender {
                     JsonObject aResult = results.getJsonObject(i);
                     String description = aResult.get("Description").toString();
                     descriptions.add(description);
-                   // System.out.println(aResult.get("Description"));
+                    System.out.println(aResult.get("Description"));
                 }
-                    //System.out.println(response.toString());
+                    System.out.println(response.toString());
                 }
             
             list.add(descriptions.toArray(new String[descriptions.size()]));

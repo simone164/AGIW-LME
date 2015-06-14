@@ -13,6 +13,9 @@ import java.util.List;
 
 import javax.json.*;
 
+//import org.json.JSONArray;
+//import org.json.JSONObject;
+
 public class QuerySender {
 
     public static List<String[]> queryToDescription(List<String> preparaQuery) throws Exception {
@@ -55,9 +58,9 @@ public class QuerySender {
                     JsonObject aResult = results.getJsonObject(i);
                     String description = aResult.get("Description").toString();
                     descriptions.add(description);
-                   // System.out.println(aResult.get("Description"));
+                    System.out.println(aResult.get("Description"));
                 }
-                    //System.out.println(response.toString());
+                    System.out.println(response.toString());
                 }
             
             list.add(descriptions.toArray(new String[descriptions.size()]));
