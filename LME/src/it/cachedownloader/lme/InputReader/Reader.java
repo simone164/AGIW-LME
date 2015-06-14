@@ -8,37 +8,39 @@ import java.util.List;
 
 public class Reader {
 
-	public List<String> TornaSetDiQuery() throws IOException{
-		
+	public List<String> returnSetDiQuery() throws IOException {
 
-		BufferedReader TSVFile = new BufferedReader(new FileReader(
-				"CacheDown/triples_actor_city_5000.tsv"));
+		BufferedReader TSVFile = new BufferedReader(new FileReader("CacheDown/triples_actor_city_5000.tsv"));
 
 		String dataRow = TSVFile.readLine();
 		List<String> list = new ArrayList<String>();
+//		int i = 0;
 		while (dataRow != null) {
+//			i++;
 			list.clear();
 			String[] dataArray = dataRow.split("\t");
 
 			String stringToAdd = dataArray[1] + " " + dataArray[3];
-
+			
+			//System.out.println("stringa: " + stringToAdd);
+			
 			list.add(stringToAdd);
 
-//			Iterator<String> it = list.iterator();
-//			while (it.hasNext()) {
-//				String txt = it.next();
-//				System.out.print(txt);
-//			}
-//			System.out.println(); // Print the data line.
+			// Iterator<String> it = list.iterator();
+			// while (it.hasNext()) {
+			// String txt = it.next();
+			// System.out.print(txt);
+			// }
+			// System.out.println(); // Print the data line.
 			dataRow = TSVFile.readLine();
 		}
 
 		TSVFile.close();
 
-		//System.out.println();
-		
+		// System.out.println()
+
 		return list;
 
 	} // main()
-		
+
 }

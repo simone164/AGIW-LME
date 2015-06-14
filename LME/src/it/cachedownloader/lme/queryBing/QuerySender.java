@@ -1,5 +1,7 @@
 package it.cachedownloader.lme.queryBing;
 
+import it.cachedownloader.lme.queryBing.Base64;
+
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
@@ -15,13 +17,12 @@ import javax.json.*;
 
 public class QuerySender {
 
-    public static List<String[]> queryToDescription(List<String> preparaQuery) throws Exception {
+    public List<String[]> queryToDescription(List<String> preparaQuery) throws Exception {
         final String accountKey = "0BurpGvn2zX75hWORRHEGtMtuS5FhZLE9A3Gi32AvU4";
         final String bingUrlPattern = "https://api.datamarket.azure.com/Bing/Search/Web?Query=%%27%s%%27&$format=JSON";
 
         List<String[]> list = new ArrayList<String[]>();
-        
-        
+                
         for (String s : preparaQuery) {
         	List<String> descriptions = new ArrayList<String>();
         	
@@ -62,6 +63,7 @@ public class QuerySender {
             
             list.add(descriptions.toArray(new String[descriptions.size()]));
             }
+
         return list;
         }
         

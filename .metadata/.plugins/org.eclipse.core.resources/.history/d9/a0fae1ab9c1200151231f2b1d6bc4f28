@@ -1,0 +1,34 @@
+package it.cachedownloader.lme.FirstJob;
+
+import it.cachedownloader.lme.DescriptionParser.Parser;
+import it.cachedownloader.lme.InputReader.Reader;
+import it.cachedownloader.lme.queryBing.QuerySender;
+
+import java.util.List;
+
+public class Main {
+	
+	public static Reader reader = new Reader();
+	public static Parser parser = new Parser();
+	public static QuerySender sender = new QuerySender();
+	
+	public static void main(String[] arg) throws Exception {
+		
+		System.out.println("MAIN");
+		
+		List<String> setDiQuery = reader.returnSetDiQuery();
+		
+		System.out.println("1");
+		List<String[]> setDiDescriptions = sender.queryToDescription(setDiQuery);
+		
+		System.out.println("2");
+		List<String> setDiPattern = parser.returnLMOutputSet();
+		
+		System.out.println("3");
+		parser.parsaPattern(setDiPattern, setDiDescriptions);
+
+		
+		
+	}
+
+}

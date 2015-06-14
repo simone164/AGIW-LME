@@ -8,17 +8,17 @@ import java.util.List;
 
 public class Main {
 	
-	public static Reader reader;
-	public static Parser parser;
-	public static QuerySender sender;
+	public static final Reader reader = new Reader();
+	public static final Parser parser = new Parser();
+	public static final QuerySender sender = new QuerySender();
 	
 	public static void main(String[] arg) throws Exception {
 		
-		List<String> setDiQuery = reader.TornaSetDiQuery();
+		List<String> setDiQuery = reader.returnSetDiQuery();
 		
-		List<String> setDiDescriptions = sender.queryToDescription(setDiQuery);
+		List<String[]> setDiDescriptions = sender.queryToDescription(setDiQuery);
 		
-		List<String> setDiPattern = parser.TornaLMOutputSet();
+		List<String> setDiPattern = parser.returnLMOutputSet();
 		
 		parser.parsaPattern(setDiPattern, setDiDescriptions);
 
