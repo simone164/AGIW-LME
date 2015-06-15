@@ -19,18 +19,11 @@ public class Reader {
 
 			String stringToAdd = dataArray[1] + "-" + dataArray[3];
 			list.add(stringToAdd);
-
-			// Iterator<String> it = list.iterator();
-			// while (it.hasNext()) {
-			// String txt = it.next();
-			// System.out.print(txt);
-			// }
-			// System.out.println(); // Print the data line.
 			dataRow = TSVFile.readLine();
 		}
 		TSVFile.close();
 		return list;
 
-	} // main()
+	} 
 
 }

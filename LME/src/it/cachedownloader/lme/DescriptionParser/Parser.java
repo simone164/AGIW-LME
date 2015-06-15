@@ -19,13 +19,6 @@ public class Parser {
 		while (dataRow != null) {
 			String stringToAdd = dataRow.toString();
 			list.add(stringToAdd);
-
-//			Iterator<String> it = list.iterator();
-//			while (it.hasNext()) {
-//				String txt = it.next();
-//				//System.out.print(txt);
-//			}
-//			//System.out.println(); // Print the data line.
 			dataRow = TSVFile.readLine();
 			
 		}
@@ -43,10 +36,7 @@ public class Parser {
 				for (int y = 0; y < arrayString.length ; y++) {
 					
 					String string = arrayString[y];
-//					System.out.println(s);
-//					System.out.println(string);
 					if (string.equals(s)) {
-						//System.out.println("matchatoEQUALS");
 						if (countPattern.containsKey(s)) {
 							int i = countPattern.get(s).intValue();
 							countPattern.put(s, new Integer(i+1));
