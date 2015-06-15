@@ -8,16 +8,16 @@ import java.util.List;
 
 public class ReaderName {
 
-	public List<String> returnNomi() throws IOException {
+	public List<String> returnNomiEntita() throws IOException {
 
-		BufferedReader TSVFile = new BufferedReader(new FileReader("CacheDown/triples_actor_city_5000.tsv"));
+		BufferedReader TSVFile = new BufferedReader(new FileReader("CacheDown/input_no_object_first200.tsv"));
 
 		int count = 0;
 		
 		String dataRow = TSVFile.readLine();
 		List<String> list = new ArrayList<String>();
 		while (dataRow != null) {
-			if(count == 100){
+			if(count == 200){
 				break;
 			}
 			String[] dataArray = dataRow.split("\t");
@@ -39,11 +39,10 @@ public class ReaderName {
 
 	} // main()
 	
-	public List<String> returnSetDiQuery(List<String> listaEntita) throws IOException {
+	public List<String> returnSetDiPattern(List<String> listaEntita) throws IOException {
 
 		List<String> list = new ArrayList<String>();
 
-		for(String s: listaEntita){
 		
 		BufferedReader TSVFile = new BufferedReader(new FileReader("CacheDown/PatternPostFirstJob.tsv"));
 
@@ -54,16 +53,15 @@ public class ReaderName {
 			String stringPostValue = dataArray[2].replace(" ", "");
 			int valuePattern = Integer.parseInt(stringPostValue);
 			
-			if(valuePattern >= 4){
 				
 				String[] stringSplitVirgola = dataRow.split(",");
 				String stringKeySporca = stringSplitVirgola[0];
 				String[] stringKeySplitted = stringKeySporca.split(":");
 				String pattern = stringKeySplitted[1];
 				
-				list.add(s + pattern);
+				list.add(pattern);
 				
-			}
+			
 
 			// Iterator<String> it = list.iterator();
 			// while (it.hasNext()) {
@@ -74,9 +72,7 @@ public class ReaderName {
 			dataRow = TSVFile.readLine();
 		}
 		TSVFile.close();
-		
 
-		}
 		
 		return list;
 

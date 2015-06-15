@@ -17,17 +17,17 @@ public class Main {
 	
 	public static void main(String[] arg) throws Exception {
 		
-		List<String> setDiEntita = reader.returnNomi();
+		List<String> setDiEntita = reader.returnNomiEntita();
 		
-		List<String> setDiQuery = reader.returnSetDiQuery(setDiEntita);
+		List<String> setDiPattern = reader.returnSetDiPattern(setDiEntita);
 		
-		System.out.println(setDiQuery.size());
+		System.out.println(setDiPattern.size());
 		
-//		Iterator<String> it = setDiQuery.iterator();
-//		 while (it.hasNext()) {
-//		 String txt = it.next();
-//		 System.out.println(txt);
-//		 }
+		Iterator<String> it = setDiPattern.iterator();
+		 while (it.hasNext()) {
+		 String txt = it.next();
+		 System.out.println(txt);
+		 }
 		
 		  
 		
