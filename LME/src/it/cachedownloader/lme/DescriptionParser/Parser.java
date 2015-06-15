@@ -43,7 +43,10 @@ public class Parser {
 				for (int y = 0; y < arrayString.length ; y++) {
 					
 					String string = arrayString[y];
-					if (distance(s, string) < 10) {
+//					System.out.println(s);
+//					System.out.println(string);
+					if (string.equals(s)) {
+						//System.out.println("matchatoEQUALS");
 						if (countPattern.containsKey(s)) {
 							int i = countPattern.get(s).intValue();
 							countPattern.put(s, new Integer(i+1));
@@ -77,5 +80,9 @@ public class Parser {
         }
         return costs[b.length()];
     }
+
+	
+	
+	
 	
 }

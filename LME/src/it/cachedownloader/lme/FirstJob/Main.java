@@ -4,6 +4,7 @@ import it.cachedownloader.lme.DescriptionParser.Parser;
 import it.cachedownloader.lme.InputReader.Reader;
 import it.cachedownloader.lme.queryBing.QuerySender;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 

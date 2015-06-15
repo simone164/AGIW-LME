@@ -18,20 +18,22 @@ import javax.json.*;
 public class QuerySender {
 
     public List<String[]> queryToDescription(List<String> preparaQuery) throws Exception {
-        final String accountKey = "0BurpGvn2zX75hWORRHEGtMtuS5FhZLE9A3Gi32AvU4";
+        final String accountKey = "wxX6kEZA2fCInFy58OuuJy/CwQkWivJZkPmN3RJYkPU";
         final String bingUrlPattern = "https://api.datamarket.azure.com/Bing/Search/Web?Query=%%27%s%%27&$format=JSON";
 
         List<String[]> list = new ArrayList<String[]>();
         int numeroQuery = 0;
         for (String s : preparaQuery) {
         	numeroQuery++;
-        	if (numeroQuery < 100) {
+        	if (numeroQuery <= 3000) {
 	        	
-        		s.replace('-', ' ');
+        		String sReplace = s.replace('-', ' ');
+        		
+        		System.out.println(numeroQuery + " " + sReplace);
         		
 	        	List<String> descriptions = new ArrayList<String>();
 	        	
-	        	final String query = URLEncoder.encode(s, Charset.defaultCharset().name());
+	        	final String query = URLEncoder.encode(sReplace, Charset.defaultCharset().name());
 	            final String bingUrl = String.format(bingUrlPattern, query);
 	
 	            final String accountKeyEnc = Base64.getEncoder().encodeToString((accountKey + ":" + accountKey).getBytes());
@@ -62,8 +64,9 @@ public class QuerySender {
 	                    String description = aResult.get("Description").toString();
 	                    description = filtraDescriptions(description, s);
 	                    if (description != "") 
+	                    	//System.out.println(description);
 	                    	descriptions.add(description);
-	                   // System.out.println(aResult.get("Description"));
+	                   //System.out.println(aResult.get("Description"));
 	                }
 	                    //System.out.println(response.toString());
 	                }
@@ -84,23 +87,31 @@ public class QuerySender {
     	String cognome = entitaSplitted[entitaSplitted.length-1];
     	
     	boolean trovato = false;
+    	boolean scrivi = false;
     	boolean daPrendere = false;
     	
     	String[] descrSplitted = description.split("\\s+");
     	for(int i = 0; i< descrSplitted.length ; i++){
+    		if(trovato){
+    			scrivi = true;
+    		}
+    		
     		if(descrSplitted[i].equals(cognome)){
     				trovato = true;
-    		}    		
-    		if(trovato){
-    			result += descrSplitted[i] + " ";
-    		}    		
+    		}
+    				
     		if(descrSplitted[i].equals(luogo)){
     				daPrendere = true;
     			break;
     		}
+    		if(trovato && scrivi){
+    			result += descrSplitted[i] + " ";
+    		}    
     	}
     	
-    	if(daPrendere && result != ""){        	
+    	if(daPrendere && result != ""){   
+    		result = result.replaceAll("\\s+$", "");
+    		//System.out.println(result);
     		return result;    	
     	}
     	return "";

@@ -6,5 +6,8 @@
 			<attribute name="owner.project.facets" value="java"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="/Users/Stefano/Desktop/CacheDown/javax.json-1.0.4.jar"/>
+	<classpathentry kind="lib" path="/Users/Stefano/Desktop/CacheDown/commons-codec-1.9.jar"/>
+	<classpathentry kind="lib" path="/Users/Stefano/Desktop/CacheDown/jsoup-1.6.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
