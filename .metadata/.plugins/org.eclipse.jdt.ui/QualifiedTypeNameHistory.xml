@@ -10,4 +10,12 @@
 <fullyQualifiedTypeName name="java.util.List"/>
 <fullyQualifiedTypeName name="java.lang.String"/>
 <fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="it.cachedownloader.lme.queryBing.Base64"/>
+<fullyQualifiedTypeName name="java.util.HashMap"/>
+<fullyQualifiedTypeName name="java.util.Map"/>
+<fullyQualifiedTypeName name="java.lang.Integer"/>
+<fullyQualifiedTypeName name="it.cachedownloader.lme.InputReader.Reader"/>
+<fullyQualifiedTypeName name="it.cachedownloader.lme.DescriptionParser.Parser"/>
+<fullyQualifiedTypeName name="it.cachedownloader.lme.queryBing.QuerySender"/>
+<fullyQualifiedTypeName name="java.util.Iterator"/>
 </qualifiedTypeNameHistroy>

@@ -4,7 +4,6 @@ import it.cachedownloader.lme.DescriptionParser.Parser;
 import it.cachedownloader.lme.InputReader.Reader;
 import it.cachedownloader.lme.queryBing.QuerySender;
 
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -27,7 +26,10 @@ public class Main {
 		for (Map.Entry<String, Integer> entry : map.entrySet()) {
 	        String key = entry.getKey().toString();;
 	        Integer value = entry.getValue();
-	        System.out.println("key: " + key + ", value: " + value );
+	        if (value > 1) {
+	        	System.out.println("key: " + key + ", value: " + value );
+	        }
+	        
 	    }
 		
 	}

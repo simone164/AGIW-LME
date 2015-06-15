@@ -18,7 +18,7 @@ import javax.json.*;
 public class QuerySender {
 
     public List<String[]> queryToDescription(List<String> preparaQuery) throws Exception {
-        final String accountKey = "wxX6kEZA2fCInFy58OuuJy/CwQkWivJZkPmN3RJYkPU";
+        final String accountKey = "zPdOhoxMujJnXSuWQBDJBLR7WbIfWcGqcodSiL0Es7w";
         final String bingUrlPattern = "https://api.datamarket.azure.com/Bing/Search/Web?Query=%%27%s%%27&$format=JSON";
 
         List<String[]> list = new ArrayList<String[]>();
