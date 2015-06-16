@@ -6,8 +6,11 @@
 			<attribute name="owner.project.facets" value="java"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/Think/Google Drive/Progetti/lib/javax.json-1.0.4.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Think/Google Drive/Progetti/lib/commons-codec-1.9.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Think/Google Drive/Progetti/lib/jsoup-1.6.0.jar"/>
+	<classpathentry kind="lib" path="/Users/Stefano/Desktop/CacheDown/javax.json-1.0.4.jar"/>
+	<classpathentry kind="lib" path="/Users/Stefano/Desktop/CacheDown/commons-codec-1.9.jar"/>
+	<classpathentry kind="lib" path="/Users/Stefano/Desktop/CacheDown/jsoup-1.6.0.jar"/>
+	<classpathentry kind="lib" path="/Users/Stefano/Desktop/CacheDown/lucene-analyzers-common-5.2.1.jar"/>
+	<classpathentry kind="lib" path="/Users/Stefano/Desktop/CacheDown/lucene-core-5.2.1.jar"/>
+	<classpathentry kind="lib" path="/Users/Stefano/Desktop/CacheDown/lucene-queryparser-5.2.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
