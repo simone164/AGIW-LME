@@ -1,11 +1,9 @@
 package it.cachedownloader.lme2.LocationParser;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -13,110 +11,114 @@ import java.util.Map;
 
 public class LocationParser {
 
-	public List<String> parsaPattern(
-			Map<String, List<String>> entityToSetDescript,
-			List<String> listPattern) throws IOException {
-		List<String> stringheFinali = new ArrayList<String>();
-
-		List<String> localitaConKey = listaLocation();
+	public Map<String, List<String>> parsaPattern(Map<String, List<String>> entityToSetDescript, List<String> listPattern) throws IOException {
 
 		System.out.println("VALORE MAPPA = " + entityToSetDescript.size());
 
-		for (Map.Entry<String, List<String>> entry : entityToSetDescript
-				.entrySet()) {
+		Map<String, List<String>> mappaEntitaToQuery = new HashMap<String, List<String>>();
 
-			Map<String, Integer> counterLocalita = new HashMap<String, Integer>();
+		for (Map.Entry<String, List<String>> entry : entityToSetDescript.entrySet()) {
+
+			List<String> listaDescriPulite = new ArrayList<String>();
 
 			String entita = entry.getKey().toString();
-			;
-
-			System.out.println("STO LAVORANDO LA CHIAVE = " + entita);
 
 			List<String> descriptionsForEntitySet = entry.getValue();
 
 			if (!(descriptionsForEntitySet.isEmpty())) {
 
-				System.out.println("ENTRATO NEL EMPTY");
-
-				int i = 0;
+				// int i = 0;
 
 				Iterator<String> it = descriptionsForEntitySet.iterator();
 				while (it.hasNext()) {
-					i++;
-					System.out.println(i);
+					// i++;
+
 					String testoDescript = it.next();
 
-					counterLocalita = tornaMappaLocationCountate(testoDescript,
-							localitaConKey, counterLocalita, listPattern);
+					// System.out.println(" CHIAMATO IL METODO TORNA QUERY");
 
+					listaDescriPulite = tornaDescrPulite(testoDescript, listaDescriPulite, listPattern);
 				}
-
-				String localitaProbabile = tornaLocalitaProbabile(counterLocalita);
-
-				stringheFinali.add(entita + " - " + localitaProbabile);
 
 			} else {
-				stringheFinali.add("");
+				// stringheFinali.add("");
 			}
+
+			mappaEntitaToQuery.put(entita, listaDescriPulite);
 
 		}
 
-		return stringheFinali;
+		return mappaEntitaToQuery;
 	}
 
-	public String tornaLocalitaProbabile(Map<String, Integer> counterLocalita) {
+	public List<String> tornaDescrPulite(String testoDescript, List<String> listaDescriPulite, List<String> listPattern) {
 
-		String localita = "";
+		for (String pattern : listPattern) {
 
-		int max = Collections.max(counterLocalita.values());
+			String stringDaAddare = "";
 
-		for (Map.Entry<String, Integer> entry : counterLocalita.entrySet()) {
+			if (testoDescript.contains(pattern)) {
 
-			int valore = entry.getValue();
-			if (valore == max) {
-				localita += entry.getKey() + " ";
-			}
-		}
+				// System.out.println(" trovato il metodo cerca pattern");
 
-		System.out.println(localita);
-		return localita;
-	}
+				String[] parolePattern = pattern.split("\\s+");
+				String[] paroleDescript = testoDescript.split("\\s+");
 
-	public Map<String, Integer> tornaMappaLocationCountate(String descriptions,
-			List<String> localitaConKey, Map<String, Integer> counterLocalita,
-			List<String> listaPattern) {
+				// System.out.println("INIZIO PATTERN");
+				// for (String s : parolePattern) {
+				// System.out.println(s);
+				// }
+				// System.out.println("FINE PATTERN");
+				//
 
-		Iterator<String> it = localitaConKey.iterator();
-		while (it.hasNext()) {
-			String localitaSporca = it.next();
-			String[] localitaSplitted = localitaSporca.split("\t");
-			String localita = localitaSplitted[1];
+				for (int i = 0; i < paroleDescript.length; i++) {
 
-			for (String pattern : listaPattern) {
+					// System.out.println(paroleDescript[i] + " vs "
+					// +parolePattern[0]);
 
-				if (descriptions.contains(pattern + " " + localita)) {
-					// System.out.println("Matcha : "+ localita);
-					if (counterLocalita.containsKey(localitaSporca)) {
-						int i = counterLocalita.get(localitaSporca).intValue();
-						counterLocalita.put(localitaSporca, new Integer(i + 1));
-						// System.out.println("L'ha trovata"+ i);
-					} else {
-						counterLocalita.put(localitaSporca, new Integer(1));
+					if (paroleDescript[i].equals(parolePattern[1])) {
+
+						System.out.println(" trovata la prima parola del pattern");
+
+						int contaPat = 0;
+						for (String s : parolePattern) {
+							contaPat++;
+						}
+
+						// QUESTO PERCHé IL PRIMO SPLIT é UNO SPAZIO BIANCO
+						contaPat = contaPat - 1;
+
+						if (paroleDescript.length > i + contaPat + 1) {
+							stringDaAddare += paroleDescript[i + contaPat + 1] + " ";
+							if (paroleDescript.length > i + contaPat + 2) {
+								stringDaAddare += paroleDescript[i + contaPat + 2] + " ";
+								if (paroleDescript.length > i + contaPat + 3) {
+									stringDaAddare += paroleDescript[i + contaPat + 3] + " ";
+								}
+							}
+
+						}
+
 					}
+
 				}
 			}
 
+			if (!stringDaAddare.equals("")) {
+				System.out.println(stringDaAddare);
+				listaDescriPulite.add(stringDaAddare);
+			}
+
 		}
 
-		return counterLocalita;
+		return listaDescriPulite;
 	}
 
 	public List<String> listaLocation() throws IOException {
 
 		List<String> list = new ArrayList<String>();
 
-		BufferedReader TSVFile = new BufferedReader(new FileReader(
-				"CacheDown/location.tsv"));
+		BufferedReader TSVFile = new BufferedReader(new FileReader("CacheDown/location.tsv"));
 
 		String dataRow = TSVFile.readLine();
 		while (dataRow != null) {

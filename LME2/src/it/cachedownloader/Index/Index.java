@@ -94,8 +94,8 @@ public class Index {
 		List<String> listaLocation = parser.listaLocation();
 		for (String localitaSporca : listaLocation) {
 			String[] localitaSplitted = localitaSporca.split("\t");
-			String chiave = localitaSplitted[0];
-			String localita = localitaSplitted[1];
+			String chiave = localitaSplitted[1];
+			String localita = localitaSplitted[0];
 
 			Document doc = new Document();
 			doc.add(new StringField("chiave", chiave, Field.Store.YES));

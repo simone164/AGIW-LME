@@ -27,21 +27,21 @@ public class Main {
 		Map<String, List<String>> mappaEntities2Descriptions = qb
 				.queryToDescription(setDiEntita, setDiPattern);
 
-		List<String> lista = parser.parsaPattern(mappaEntities2Descriptions, setDiPattern);
+		Map<String, List<String>> mappaEntita2Query = parser.parsaPattern(mappaEntities2Descriptions, setDiPattern);
 
 		// System.out.println(setDiPattern.size());
 
-		if (!lista.isEmpty()) {
-
-			Iterator<String> it = lista.iterator();
-			while (it.hasNext()) {
-				String txt = it.next();
-				System.out.println(txt);
-			}
-
-		} else {
-			System.out.println("LISTA DELLE DESCRIPTION VUOTA");
-		}
+//		if (!lista.isEmpty()) {
+//
+//			Iterator<String> it = lista.iterator();
+//			while (it.hasNext()) {
+//				String txt = it.next();
+//				System.out.println(txt);
+//			}
+//
+//		} else {
+//			System.out.println("LISTA DELLE DESCRIPTION VUOTA");
+//		}
 	}
 
 }
