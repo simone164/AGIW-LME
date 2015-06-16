@@ -51,6 +51,7 @@ public class LocationParser {
 		return mappaEntitaToQuery;
 	}
 
+	@SuppressWarnings("unused")
 	public List<String> tornaDescrPulite(String testoDescript, List<String> listaDescriPulite, List<String> listPattern) {
 
 		for (String pattern : listPattern) {

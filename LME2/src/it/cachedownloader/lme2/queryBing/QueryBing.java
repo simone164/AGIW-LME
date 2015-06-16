@@ -35,7 +35,6 @@ public class QueryBing {
 
 			// splitto la stringa iniziale per ottenere solo nome e cognome
 			String[] split = s.split("\t");
-			String codice = split[0];
 			String nomeCognome = split[1];
 
 			System.out.println("s: " + nomeCognome +" # " + numeroQuery);
