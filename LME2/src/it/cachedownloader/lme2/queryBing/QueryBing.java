@@ -21,7 +21,7 @@ import javax.json.JsonReader;
 public class QueryBing {
 
 	public Map<String, List<String>> queryToDescription(List<String> setNomi, List<String> setPatterns) throws Exception {
-		final String accountKey = "zPdOhoxMujJnXSuWQBDJBLR7WbIfWcGqcodSiL0Es7w";
+		final String accountKey = "7kPLJo4DEu0oDNNYEW7O+vfRSHsBenl5FUTbTlXxFnI";
 		final String bingUrlPattern = "https://api.datamarket.azure.com/Bing/Search/Web?Query=%%27%s%%27&$format=JSON";
 
 		Map<String, List<String>> mappa = new HashMap<String, List<String>>();
@@ -41,9 +41,9 @@ public class QueryBing {
 			
 			// cilco per ogni pattern
 			for (String pattern : setPatterns) {
-				if (numeroQuery < 2) {
+				if (numeroQuery < 201) {
 
-					System.out.println("s+patter: " + nomeCognome + " " + pattern);
+					//System.out.println("s+patter: " + nomeCognome + pattern);
 					
 					final String query = URLEncoder.encode(nomeCognome+pattern, Charset.defaultCharset().name());
 					final String bingUrl = String.format(bingUrlPattern, query);

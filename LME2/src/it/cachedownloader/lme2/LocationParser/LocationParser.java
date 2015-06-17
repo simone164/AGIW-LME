@@ -11,17 +11,25 @@ import java.util.Map;
 
 public class LocationParser {
 
-	public Map<String, List<String>> tornaMappaEntitiesToQuery(Map<String, List<String>> entityToSetDescript, List<String> listPattern) throws IOException {
+	public Map<String, List<String>> tornaMappaEntitiesToQuery(Map<String, List<String>> entityToSetDescript, List<String> listPattern)
+			throws IOException {
 
-		System.out.println("VALORE MAPPA = " + entityToSetDescript.size());
+		// System.out.println("VALORE MAPPA = " + entityToSetDescript.size());
 
 		Map<String, List<String>> mappaEntitaToQuery = new HashMap<String, List<String>>();
+		
+		int i = 0;
 
 		for (Map.Entry<String, List<String>> entry : entityToSetDescript.entrySet()) {
+			
+			i++;
+			System.out.println("parso #"+i);
 
 			List<String> listaDescriPulite = new ArrayList<String>();
 
 			String entita = entry.getKey().toString();
+			String[] entSplitted = entita.split("\t");
+			String nome = entSplitted[1];
 
 			List<String> descriptionsForEntitySet = entry.getValue();
 
@@ -37,7 +45,7 @@ public class LocationParser {
 
 					// System.out.println(" CHIAMATO IL METODO TORNA QUERY");
 
-					listaDescriPulite = tornaDescrPulite(testoDescript, listaDescriPulite, listPattern);
+					listaDescriPulite = tornaDescrPulite(testoDescript, listaDescriPulite, listPattern, nome);
 				}
 
 			} else {
@@ -52,13 +60,18 @@ public class LocationParser {
 	}
 
 	@SuppressWarnings("unused")
-	public List<String> tornaDescrPulite(String testoDescript, List<String> listaDescriPulite, List<String> listPattern) {
+	public List<String> tornaDescrPulite(String testoDescript, List<String> listaDescriPulite, List<String> listPattern, String entita) {
 
 		for (String pattern : listPattern) {
 
+			String stringPerContains = entita + pattern;
+			System.out.println(stringPerContains);
+
 			String stringDaAddare = "";
 
-			if (testoDescript.contains(pattern)) {
+			String stringFinale = "";
+
+			if (testoDescript.contains(stringPerContains)) {
 
 				// System.out.println(" trovato il metodo cerca pattern");
 
@@ -79,7 +92,7 @@ public class LocationParser {
 
 					if (paroleDescript[i].equals(parolePattern[1])) {
 
-						System.out.println(" trovata la prima parola del pattern");
+						// System.out.println(" trovata la prima parola del pattern");
 
 						int contaPat = 0;
 						for (String s : parolePattern) {
@@ -89,15 +102,26 @@ public class LocationParser {
 						// QUESTO PERCHé IL PRIMO SPLIT é UNO SPAZIO BIANCO
 						contaPat = contaPat - 1;
 
+						String paroleAfter = "";
+
 						if (paroleDescript.length > i + contaPat + 1) {
-							stringDaAddare += paroleDescript[i + contaPat + 1] + " ";
+							paroleAfter += paroleDescript[i + contaPat + 1] + " ";
 							if (paroleDescript.length > i + contaPat + 2) {
-								stringDaAddare += paroleDescript[i + contaPat + 2] + " ";
+								paroleAfter += paroleDescript[i + contaPat + 2] + " ";
 								if (paroleDescript.length > i + contaPat + 3) {
-									stringDaAddare += paroleDescript[i + contaPat + 3] + " ";
+									paroleAfter += paroleDescript[i + contaPat + 3] + " ";
+									if (paroleDescript.length > i + contaPat + 4) {
+										paroleAfter += paroleDescript[i + contaPat + 4] + " ";
+										if (paroleDescript.length > i + contaPat + 5) {
+											paroleAfter += paroleDescript[i + contaPat + 5] + " ";
+
+											stringFinale += paroleAfter + " ";
+
+										}
+									}
+
 								}
 							}
-
 						}
 
 					}
@@ -105,9 +129,19 @@ public class LocationParser {
 				}
 			}
 
-			if (!stringDaAddare.equals("")) {
-				System.out.println(stringDaAddare);
-				listaDescriPulite.add(stringDaAddare);
+			if (!stringFinale.equals("")) {
+				// System.out.println(stringDaAddare);
+
+				System.out.println(stringFinale);
+
+				stringDaAddare = StanfordNER.identifyNER(stringFinale,
+						"/Users/Stefano/Desktop/CacheDown/stanford-ner-2014-01-04/classifiers/english.all.3class.distsim.crf.ser.gz").toString();
+
+				if (!stringDaAddare.equals("")) {
+
+					listaDescriPulite.add(stringDaAddare);
+				}
+
 			}
 
 		}

@@ -6,6 +6,7 @@ import it.cachedownloader.lme2.InputReader.ReaderName;
 import it.cachedownloader.lme2.LocationParser.LocationParser;
 import it.cachedownloader.lme2.queryBing.QueryBing;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -33,17 +34,17 @@ public class Main {
 		
 		// System.out.println(setDiPattern.size());
 
-		// if (!lista.isEmpty()) {
-		//
-		// Iterator<String> it = lista.iterator();
-		// while (it.hasNext()) {
-		// String txt = it.next();
-		// System.out.println(txt);
-		// }
-		//
-		// } else {
-		// System.out.println("LISTA DELLE DESCRIPTION VUOTA");
-		// }
+		 if (!setOfResults.isEmpty()) {
+		
+		 Iterator<String> it = setOfResults.iterator();
+		 while (it.hasNext()) {
+		 String txt = it.next();
+		 System.out.println(txt);
+		 }
+		
+		 } else {
+		 System.out.println("LISTA DELLE DESCRIPTION VUOTA");
+		 }
 	}
 
 }

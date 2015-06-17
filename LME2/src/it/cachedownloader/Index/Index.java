@@ -5,6 +5,7 @@ import it.cachedownloader.lme2.LocationParser.LocationParser;
 import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -174,8 +175,29 @@ public class Index {
 				for (int i = 0; i < hits.length; ++i) {
 					int docId = hits[i].doc;
 					Document d = searcher.doc(docId);
-					System.out.println("chiave: " + d.get("chiave") + "	 Lacalita: " + d.get("localita"));
+					String result = d.get("chiave") + "\t" +d.get("localita");
+					//System.out.println("chiave: " + d.get("chiave") + "	 Lacalita: " + d.get("localita"));
+					if (risultato.containsKey(result)) {
+						int j = risultato.get(result).intValue();
+						risultato.put(result, new Integer(j+1));
+					} else {
+						risultato.put(result, new Integer(1));
+					}
 				}
+				
+				int max = Collections.max(risultato.values());
+				
+				String localita = " ";
+				
+				for (Map.Entry<String, Integer> entri : risultato.entrySet()) {
+					
+					if(entri.getValue()==max){
+						localita = entri.getKey();
+					}
+					
+				}
+				
+				listaOutputs.add(entita + "\t" + localita);
 
 			}
 		}
