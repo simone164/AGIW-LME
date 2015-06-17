@@ -41,7 +41,7 @@ public class QueryBing {
 			
 			// cilco per ogni pattern
 			for (String pattern : setPatterns) {
-				if (numeroQuery < 201) {
+				if (numeroQuery < 2) {
 
 					//System.out.println("s+patter: " + nomeCognome + pattern);
 					

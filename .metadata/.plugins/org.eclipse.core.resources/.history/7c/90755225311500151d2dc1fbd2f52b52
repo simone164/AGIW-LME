@@ -121,22 +121,19 @@ public class Index {
 				}
 			}
 			
-			if (hits != null) {
-				if (hits.length != 0) {
-					int max = Collections.max(risultato.values());
-					String localita = " ";
-					
-					for (Map.Entry<String, Integer> entri : risultato.entrySet()) {
-						if (entri.getValue() == max) {
-							localita = entri.getKey();
-						}
-
+			if (hits.length != 0 && hits != null) {
+				int max = Collections.max(risultato.values());
+				String localita = " ";
+				
+				for (Map.Entry<String, Integer> entri : risultato.entrySet()) {
+					if (entri.getValue() == max) {
+						localita = entri.getKey();
 					}
 
-					listaOutputs.add(entita + "\t" + localita);
 				}
+
+				listaOutputs.add(entita + "\t" + localita);
 			}
-			
 		}
 
 		return listaOutputs;

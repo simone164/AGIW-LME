@@ -100,7 +100,7 @@ public class LocationParser {
 			if (!stringFinale.equals("")) {
 
 				stringDaAddare = StanfordNER.identifyNER(stringFinale,
-						"CacheDown/stanford-ner-2014-01-04/classifiers/english.all.3class.distsim.crf.ser.gz")
+						"/CacheDown/stanford-ner-2014-01-04/classifiers/english.all.3class.distsim.crf.ser.gz")
 						.toString();
 
 				if (!stringDaAddare.equals("")) {

@@ -31,7 +31,7 @@ public class Main {
 
 		List<String> setOfResults = searcherLucene.searchIndex(mappaEntita2Query);
 
-		PrintWriter writer = new PrintWriter("CacheDown/output.tsv", "UTF-8");
+		PrintWriter writer = new PrintWriter("the-file-name.txt", "UTF-8");
 	
 		if (!setOfResults.isEmpty()) {
 
