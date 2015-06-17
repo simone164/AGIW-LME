@@ -36,13 +36,14 @@ public class Index {
 
 	public static final LocationParser parser = new LocationParser();
 
-//	public static void main(String[] args) throws IOException, ParseException {
-//
-//		// creaIndex();
-//
-//		//searchIndex("Rome di notteee");
-//
-//	}
+	// public static void main(String[] args) throws IOException, ParseException
+	// {
+	//
+	// // creaIndex();
+	//
+	// //searchIndex("Rome di notteee");
+	//
+	// }
 
 	public static void search(Map<String, List<String>> mappa) throws IOException, ParseException {
 		StandardAnalyzer analyzer = new StandardAnalyzer(CharArraySet.EMPTY_SET);
@@ -116,7 +117,6 @@ public class Index {
 		/* open a directory reader and create searcher and topdocs */
 		IndexReader reader = DirectoryReader.open(directory);
 		IndexSearcher searcher = new IndexSearcher(reader);
-		
 
 		/* create the query parser */
 		QueryParser qp = new QueryParser("localita", analyzer);
@@ -130,32 +130,32 @@ public class Index {
 			for (String query : entry.getValue()) {
 
 				TopScoreDocCollector collector = TopScoreDocCollector.create(maxHits);
-				
+
 				BooleanQuery inBoolQuery = new BooleanQuery();
-				
+
 				String[] querySplittata = query.split("\\s+");
-				for(String s: querySplittata){
-					
-					//Query termQuery = qp.parse(s);
+				for (String s : querySplittata) {
+
+					// Query termQuery = qp.parse(s);
 					Query termQuery = qp.parse(QueryParser.escape(s));
 					inBoolQuery.add(termQuery, Occur.SHOULD);
 				}
-				
-//				/* create a query from 3 words */
-//				String term1 = "rome";
-//				String term2 = "� bella";
-//				String term3 = "di notte";
-//				Query termQuery1 = qp.parse(term1);
-//				Query termQuery2 = qp.parse(term2);
-//				Query termQuery3 = qp.parse(term3);
-//				/* create inner boolean query */
-//				BooleanQuery in = new BooleanQuery();
-//				in.add(termQuery2, Occur.MUST_NOT);
-//				in.add(termQuery3, Occur.MUST_NOT);
-//				/* create outer boolean query */
-//				BooleanQuery out = new BooleanQuery();
-//				out.add(in, Occur.SHOULD);
-//				out.add(termQuery1, Occur.SHOULD);
+
+				// /* create a query from 3 words */
+				// String term1 = "rome";
+				// String term2 = "� bella";
+				// String term3 = "di notte";
+				// Query termQuery1 = qp.parse(term1);
+				// Query termQuery2 = qp.parse(term2);
+				// Query termQuery3 = qp.parse(term3);
+				// /* create inner boolean query */
+				// BooleanQuery in = new BooleanQuery();
+				// in.add(termQuery2, Occur.MUST_NOT);
+				// in.add(termQuery3, Occur.MUST_NOT);
+				// /* create outer boolean query */
+				// BooleanQuery out = new BooleanQuery();
+				// out.add(in, Occur.SHOULD);
+				// out.add(termQuery1, Occur.SHOULD);
 
 				/* query string */
 				// Query q = qp.parse(searchString);
@@ -175,29 +175,31 @@ public class Index {
 				for (int i = 0; i < hits.length; ++i) {
 					int docId = hits[i].doc;
 					Document d = searcher.doc(docId);
-					String result = d.get("chiave") + "\t" +d.get("localita");
-					//System.out.println("chiave: " + d.get("chiave") + "	 Lacalita: " + d.get("localita"));
+					String result = d.get("chiave") + "\t" + d.get("localita");
+					// System.out.println("chiave: " + d.get("chiave") +
+					// "	 Lacalita: " + d.get("localita"));
 					if (risultato.containsKey(result)) {
 						int j = risultato.get(result).intValue();
-						risultato.put(result, new Integer(j+1));
+						risultato.put(result, new Integer(j + 1));
 					} else {
 						risultato.put(result, new Integer(1));
 					}
 				}
-				
-				int max = Collections.max(risultato.values());
-				
-				String localita = " ";
-				
-				for (Map.Entry<String, Integer> entri : risultato.entrySet()) {
-					
-					if(entri.getValue()==max){
-						localita = entri.getKey();
+				if (hits.length != 0) {
+					int max = Collections.max(risultato.values());
+
+					String localita = " ";
+
+					for (Map.Entry<String, Integer> entri : risultato.entrySet()) {
+
+						if (entri.getValue() == max) {
+							localita = entri.getKey();
+						}
+
 					}
-					
+
+					listaOutputs.add(entita + "\t" + localita);
 				}
-				
-				listaOutputs.add(entita + "\t" + localita);
 
 			}
 		}
@@ -205,5 +207,4 @@ public class Index {
 		return listaOutputs;
 
 	}
-
 }
