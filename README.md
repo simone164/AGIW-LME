@@ -1,7 +1,6 @@
-# AGIW-LME
-<h1>AGIW-LME<h1>
+<h3>AGIW-LME<h3>
 
-<h2>Progetto finale di "Analisi e gestione dell'informazione sul web"<h2>
+Progetto finale di "Analisi e gestione dell'informazione sul web"
 
 Stefano Cursi
 <br>
