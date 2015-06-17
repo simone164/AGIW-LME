@@ -13,18 +13,14 @@ public class LocationParser {
 
 	public Map<String, List<String>> tornaMappaEntitiesToQuery(Map<String, List<String>> entityToSetDescript, List<String> listPattern)
 			throws IOException {
-
-		// System.out.println("VALORE MAPPA = " + entityToSetDescript.size());
-
 		Map<String, List<String>> mappaEntitaToQuery = new HashMap<String, List<String>>();
-		
+
 		int i = 0;
 
 		for (Map.Entry<String, List<String>> entry : entityToSetDescript.entrySet()) {
-			
 			i++;
-			System.out.println("parso #"+i);
-
+			System.out.println("parso #" + i);
+			
 			List<String> listaDescriPulite = new ArrayList<String>();
 
 			String entita = entry.getKey().toString();
@@ -34,17 +30,11 @@ public class LocationParser {
 			List<String> descriptionsForEntitySet = entry.getValue();
 
 			if (!(descriptionsForEntitySet.isEmpty())) {
-
 				// int i = 0;
-
 				Iterator<String> it = descriptionsForEntitySet.iterator();
 				while (it.hasNext()) {
 					// i++;
-
 					String testoDescript = it.next();
-
-					// System.out.println(" CHIAMATO IL METODO TORNA QUERY");
-
 					listaDescriPulite = tornaDescrPulite(testoDescript, listaDescriPulite, listPattern, nome);
 				}
 
@@ -53,9 +43,7 @@ public class LocationParser {
 			}
 
 			mappaEntitaToQuery.put(entita, listaDescriPulite);
-
 		}
-
 		return mappaEntitaToQuery;
 	}
 
@@ -63,37 +51,19 @@ public class LocationParser {
 	public List<String> tornaDescrPulite(String testoDescript, List<String> listaDescriPulite, List<String> listPattern, String entita) {
 
 		for (String pattern : listPattern) {
-
 			String stringPerContains = entita + pattern;
+		
 			System.out.println(stringPerContains);
 
 			String stringDaAddare = "";
-
 			String stringFinale = "";
 
 			if (testoDescript.contains(stringPerContains)) {
-
-				// System.out.println(" trovato il metodo cerca pattern");
-
 				String[] parolePattern = pattern.split("\\s+");
 				String[] paroleDescript = testoDescript.split("\\s+");
 
-				// System.out.println("INIZIO PATTERN");
-				// for (String s : parolePattern) {
-				// System.out.println(s);
-				// }
-				// System.out.println("FINE PATTERN");
-				//
-
 				for (int i = 0; i < paroleDescript.length; i++) {
-
-					// System.out.println(paroleDescript[i] + " vs "
-					// +parolePattern[0]);
-
 					if (paroleDescript[i].equals(parolePattern[1])) {
-
-						// System.out.println(" trovata la prima parola del pattern");
-
 						int contaPat = 0;
 						for (String s : parolePattern) {
 							contaPat++;
@@ -130,15 +100,13 @@ public class LocationParser {
 			}
 
 			if (!stringFinale.equals("")) {
-				// System.out.println(stringDaAddare);
-
 				System.out.println(stringFinale);
 
 				stringDaAddare = StanfordNER.identifyNER(stringFinale,
-						"/Users/Stefano/Desktop/CacheDown/stanford-ner-2014-01-04/classifiers/english.all.3class.distsim.crf.ser.gz").toString();
+						"/Users/Stefano/Desktop/CacheDown/stanford-ner-2014-01-04/classifiers/english.all.3class.distsim.crf.ser.gz")
+						.toString();
 
 				if (!stringDaAddare.equals("")) {
-
 					listaDescriPulite.add(stringDaAddare);
 				}
 

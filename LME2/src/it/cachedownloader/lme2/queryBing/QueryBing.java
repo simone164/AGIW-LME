@@ -84,6 +84,6 @@ public class QueryBing {
 			mappa.put(s, list);
 		}
 
-		return mappa;
+		return mappa; //ritorniamo una mappa contenente l'entita con associate tutte le sue description
 	}
 }

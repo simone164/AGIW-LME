@@ -15,52 +15,32 @@ public class ReaderName {
 		String dataRow = TSVFile.readLine();
 		List<String> list = new ArrayList<String>();
 		while (dataRow != null) {
-
 			list.add(dataRow);
-
-			// Iterator<String> it = list.iterator();
-			// while (it.hasNext()) {
-			// String txt = it.next();
-			// System.out.print(txt);
-			// }
-			// System.out.println(); // Print the data line.
 			dataRow = TSVFile.readLine();
 		}
 		TSVFile.close();
 		return list;
 
 	}
-	
-	public List<String> returnSetDiPattern() throws IOException {
 
+	public List<String> returnSetDiPattern() throws IOException {
 		List<String> list = new ArrayList<String>();
 
 		BufferedReader TSVFile = new BufferedReader(new FileReader("CacheDown/PatternPostFirstJob.tsv"));
 
 		String dataRow = TSVFile.readLine();
 		while (dataRow != null) {
-				
 			String[] stringSplitVirgola = dataRow.split(",");
 			String stringKeySporca = stringSplitVirgola[0];
 			String[] stringKeySplitted = stringKeySporca.split(":");
 			String pattern = stringKeySplitted[1];
-			
+
 			list.add(pattern);
-				
-			// Iterator<String> it = list.iterator();
-			// while (it.hasNext()) {
-			// String txt = it.next();
-			// System.out.print(txt);
-			// }
-			// System.out.println(); // Print the data line.
 			dataRow = TSVFile.readLine();
 		}
 		TSVFile.close();
 
-		
 		return list;
 
-	} // main()
-
-
+	}
 }
