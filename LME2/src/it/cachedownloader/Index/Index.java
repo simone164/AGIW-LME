@@ -4,6 +4,7 @@ import it.cachedownloader.lme2.LocationParser.LocationParser;
 
 import java.io.IOException;
 import java.nio.file.FileSystems;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,13 +35,13 @@ public class Index {
 
 	public static final LocationParser parser = new LocationParser();
 
-	public static void main(String[] args) throws IOException, ParseException {
-
-		// creaIndex();
-
-		searchIndex("Rome di notteee");
-
-	}
+//	public static void main(String[] args) throws IOException, ParseException {
+//
+//		// creaIndex();
+//
+//		//searchIndex("Rome di notteee");
+//
+//	}
 
 	public static void search(Map<String, List<String>> mappa) throws IOException, ParseException {
 		StandardAnalyzer analyzer = new StandardAnalyzer(CharArraySet.EMPTY_SET);
@@ -56,22 +57,6 @@ public class Index {
 
 		/* create the query parser */
 		QueryParser qp = new QueryParser("localita", analyzer);
-
-		for (Map.Entry<String, List<String>> entry : mappa.entrySet()) {
-			String entita = entry.getKey();
-			ScoreDoc[] hits;
-
-			Map<String, Integer> risultato = new HashMap<String, Integer>();
-
-			for (String s : entry.getValue()) {
-				Query q = qp.parse(s);
-				searcher.search(q, collector);
-				hits = collector.topDocs().scoreDocs;
-
-				risultato.put("LA CITTà CHE TROVEREMO", hits.length);
-			}
-
-		}
 
 		// /* query string */
 		// Query q = qp.parse("cerca");
@@ -116,59 +101,86 @@ public class Index {
 
 	}
 
-	public static void searchIndex(String searchString) throws IOException, ParseException {
-		System.out.println("Searching for '" + searchString + "'");
+	public List<String> searchIndex(Map<String, List<String>> mappa) throws IOException, ParseException {
+		// System.out.println("Searching for '" + searchString + "'");
+
+		List<String> listaOutputs = new ArrayList<String>();
 
 		StandardAnalyzer analyzer = new StandardAnalyzer(CharArraySet.EMPTY_SET);
 		Directory directory = FSDirectory.open(FileSystems.getDefault().getPath("index/indice"));
 
 		/* set the maximum number of results */
-		int maxHits = 1000;
+		int maxHits = 1000000;
 
 		/* open a directory reader and create searcher and topdocs */
 		IndexReader reader = DirectoryReader.open(directory);
 		IndexSearcher searcher = new IndexSearcher(reader);
-		TopScoreDocCollector collector = TopScoreDocCollector.create(maxHits);
+		
 
 		/* create the query parser */
 		QueryParser qp = new QueryParser("localita", analyzer);
 
-		/* create a query from 3 words */
-		String term1 = "rome";
-		String term2 = "è bella";
-		String term3 = "di notte";
-		Query termQuery1 = qp.parse(term1);
-		Query termQuery2 = qp.parse(term2);
-		Query termQuery3 = qp.parse(term3);
-		/* create inner boolean query */
-		BooleanQuery in = new BooleanQuery();
-		in.add(termQuery2, Occur.MUST_NOT);
-		in.add(termQuery3, Occur.MUST_NOT);
-		/* create outer boolean query */
-		BooleanQuery out = new BooleanQuery();
-		out.add(in, Occur.SHOULD);
-		out.add(termQuery1, Occur.SHOULD);
+		for (Map.Entry<String, List<String>> entry : mappa.entrySet()) {
+			String entita = entry.getKey();
+			// ScoreDoc[] hits;
 
-		/* query string */
-	//	Query q = qp.parse(searchString);
+			Map<String, Integer> risultato = new HashMap<String, Integer>();
 
-		/* search into the index */
-		searcher.search(out, collector);
-		ScoreDoc[] hits = collector.topDocs().scoreDocs;
+			for (String query : entry.getValue()) {
 
-//		for (ScoreDoc h : hits) {
-//			System.out.println(h.toString());
-//		}
-//
-//		System.out.println(hits.length);
+				TopScoreDocCollector collector = TopScoreDocCollector.create(maxHits);
+				
+				BooleanQuery inBoolQuery = new BooleanQuery();
+				
+				String[] querySplittata = query.split("\\s+");
+				for(String s: querySplittata){
+					
+					//Query termQuery = qp.parse(s);
+					Query termQuery = qp.parse(QueryParser.escape(s));
+					inBoolQuery.add(termQuery, Occur.SHOULD);
+				}
+				
+//				/* create a query from 3 words */
+//				String term1 = "rome";
+//				String term2 = "ï¿½ bella";
+//				String term3 = "di notte";
+//				Query termQuery1 = qp.parse(term1);
+//				Query termQuery2 = qp.parse(term2);
+//				Query termQuery3 = qp.parse(term3);
+//				/* create inner boolean query */
+//				BooleanQuery in = new BooleanQuery();
+//				in.add(termQuery2, Occur.MUST_NOT);
+//				in.add(termQuery3, Occur.MUST_NOT);
+//				/* create outer boolean query */
+//				BooleanQuery out = new BooleanQuery();
+//				out.add(in, Occur.SHOULD);
+//				out.add(termQuery1, Occur.SHOULD);
 
-		/* print results */
-		System.out.println("Found " + hits.length + " hits.");
-		for (int i = 0; i < hits.length; ++i) {
-			int docId = hits[i].doc;
-			Document d = searcher.doc(docId);
-			System.out.println("chiave: " + d.get("chiave") + "	 Lacalità: " + d.get("localita"));
+				/* query string */
+				// Query q = qp.parse(searchString);
+
+				/* search into the index */
+				searcher.search(inBoolQuery, collector);
+				ScoreDoc[] hits = collector.topDocs().scoreDocs;
+
+				// for (ScoreDoc h : hits) {
+				// System.out.println(h.toString());
+				// }
+				//
+				// System.out.println(hits.length);
+
+				/* print results */
+				System.out.println("Found " + hits.length + " hits.");
+				for (int i = 0; i < hits.length; ++i) {
+					int docId = hits[i].doc;
+					Document d = searcher.doc(docId);
+					System.out.println("chiave: " + d.get("chiave") + "	 Lacalita: " + d.get("localita"));
+				}
+
+			}
 		}
+
+		return listaOutputs;
 
 	}
 

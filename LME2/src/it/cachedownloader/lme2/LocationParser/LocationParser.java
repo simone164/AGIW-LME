@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class LocationParser {
 
-	public Map<String, List<String>> parsaPattern(Map<String, List<String>> entityToSetDescript, List<String> listPattern) throws IOException {
+	public Map<String, List<String>> tornaMappaEntitiesToQuery(Map<String, List<String>> entityToSetDescript, List<String> listPattern) throws IOException {
 
 		System.out.println("VALORE MAPPA = " + entityToSetDescript.size());
 

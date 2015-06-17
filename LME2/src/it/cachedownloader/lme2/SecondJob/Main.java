@@ -1,5 +1,6 @@
 package it.cachedownloader.lme2.SecondJob;
 
+import it.cachedownloader.Index.Index;
 import it.cachedownloader.lme2.InputReader.ReaderName;
 //import it.cachedownloader.lme2.queryBing.QuerySender;
 import it.cachedownloader.lme2.LocationParser.LocationParser;
@@ -13,6 +14,7 @@ public class Main {
 	public static final ReaderName reader = new ReaderName();
 	public static final QueryBing qb = new QueryBing();
 	public static final LocationParser parser = new LocationParser();
+	public static final Index searcherLucene = new Index();
 
 	public static void main(String[] arg) throws Exception {
 
@@ -23,8 +25,12 @@ public class Main {
 
 		Map<String, List<String>> mappaEntities2Descriptions = qb.queryToDescription(setDiEntita, setDiPattern);
 
-		Map<String, List<String>> mappaEntita2Query = parser.parsaPattern(mappaEntities2Descriptions, setDiPattern);
+		Map<String, List<String>> mappaEntita2Query = parser.tornaMappaEntitiesToQuery(mappaEntities2Descriptions, setDiPattern);
 
+		//searcherLucene.creaIndex();
+		
+		List<String> setOfResults = searcherLucene.searchIndex(mappaEntita2Query);
+		
 		// System.out.println(setDiPattern.size());
 
 		// if (!lista.isEmpty()) {
