@@ -45,30 +45,6 @@ public class Index {
 	//
 	// }
 
-	public static void search(Map<String, List<String>> mappa) throws IOException, ParseException {
-		StandardAnalyzer analyzer = new StandardAnalyzer(CharArraySet.EMPTY_SET);
-		Directory directory = FSDirectory.open(FileSystems.getDefault().getPath("index/indice"));
-
-		/* set the maximum number of results */
-		int maxHits = 1000;
-
-		/* open a directory reader and create searcher and topdocs */
-		IndexReader reader = DirectoryReader.open(directory);
-		IndexSearcher searcher = new IndexSearcher(reader);
-		TopScoreDocCollector collector = TopScoreDocCollector.create(maxHits);
-
-		/* create the query parser */
-		QueryParser qp = new QueryParser("localita", analyzer);
-
-		// /* query string */
-		// Query q = qp.parse("cerca");
-		//
-		// /* search into the index */
-		// searcher.search(q, collector);
-		// ScoreDoc[] hits = collector.topDocs().scoreDocs;
-
-	}
-
 	public static void creaIndex() throws IOException {
 
 		/* create a standard analyzer */

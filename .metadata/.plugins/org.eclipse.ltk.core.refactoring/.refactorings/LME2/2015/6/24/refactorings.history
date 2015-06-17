@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Rename package &apos;it.cachedownloader.lme.test&apos; to &apos;it.cachedownloader.lme2.test&apos;&#x0D;&#x0A;- Original project: &apos;LME2&apos;&#x0D;&#x0A;- Original element: &apos;LME2/src/it.cachedownloader.lme.test&apos;&#x0D;&#x0A;- Renamed element: &apos;LME2/src/it.cachedownloader.lme2.test&apos;&#x0D;&#x0A;- Update references to refactored element&#x0D;&#x0A;- Update textual occurrences in comments and strings" description="Rename package &apos;it.cachedownloader.lme.test&apos;" flags="589830" hierarchical="false" id="org.eclipse.jdt.ui.rename.package" input="/src&lt;it.cachedownloader.lme.test" name="it.cachedownloader.lme2.test" qualified="false" references="true" stamp="1434205495000" textual="false" version="1.0"/>
-</session>
